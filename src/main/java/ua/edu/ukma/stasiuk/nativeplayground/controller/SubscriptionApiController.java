@@ -9,13 +9,13 @@ import ua.edu.ukma.stasiuk.nativeplayground.repository.SubscriptionRepository;
 
 @RestController
 @RequestMapping("/api/subscriptions")
-public class SubscriptionController {
+public class SubscriptionApiController {
 
     private final SubscriptionRepository subscriptionRepository;
     private final SubscriptionMapper subscriptionMapper;
 
-    public SubscriptionController(SubscriptionRepository subscriptionRepository,
-                                  SubscriptionMapper subscriptionMapper) {
+    public SubscriptionApiController(SubscriptionRepository subscriptionRepository,
+                                     SubscriptionMapper subscriptionMapper) {
         this.subscriptionRepository = subscriptionRepository;
         this.subscriptionMapper = subscriptionMapper;
     }
