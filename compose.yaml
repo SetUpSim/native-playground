@@ -11,6 +11,22 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     restart: unless-stopped
+    healthcheck:
+      test: pg_isready -Upostgres
+      interval: 10s
+      timeout: 2s
+      retries: 5
+
+  playground:
+    image: native-playground:latest
+    container_name: native-playground-container
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/native_playground
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:
