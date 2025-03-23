@@ -63,6 +63,26 @@
                 </plugins>
             </build>
         </profile>
+        
+        <profile>
+            <id>native-fast</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <image>
+                                <env>
+                                    <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-Ob</BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
+                                </env>
+                            </image>
+                        </configuration>
+                    </plugin>
+                </plugins>
+
+            </build>
+        </profile>
     </profiles>
 
     <dependencies>
