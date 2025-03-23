@@ -13,7 +13,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Entity(name = "subscription")
+@Entity
+@Table(name = "subscription", uniqueConstraints = @UniqueConstraint(
+        name = SubscriptionEntityConstraints.SERVICE_NAME_UNIQUE,
+        columnNames = "serviceName"
+))
 public class SubscriptionEntity {
     @UuidGenerator
     @Id
