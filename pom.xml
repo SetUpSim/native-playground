@@ -35,7 +35,7 @@
 
     <profiles>
         <profile>
-            <id>native-fast</id>
+            <id>native-fast-build</id>
             <build>
                 <plugins>
                     <plugin>
