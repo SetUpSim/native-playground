@@ -3,6 +3,28 @@
     {
       "type": "java.util.UUID[]",
       "unsafeAllocated": true
+    },
+    {
+      "type": "java.lang.Boolean",
+      "fields": [
+        {
+          "name": "FALSE"
+        }
+      ]
+    },
+    {
+      "type": "ua.edu.ukma.stasiuk.nativeplayground.service.ValueService",
+      "methods": [
+        {
+          "name": "getRandomBoolean"
+        },
+        {
+          "name": "getConstantFalse"
+        },
+        {
+          "name": "getSomeString"
+        }
+      ]
     }
   ]
 }

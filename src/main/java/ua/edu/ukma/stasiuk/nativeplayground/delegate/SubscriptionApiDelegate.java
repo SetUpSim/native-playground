@@ -1,6 +1,8 @@
 package ua.edu.ukma.stasiuk.nativeplayground.delegate;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
@@ -11,20 +13,33 @@ import ua.edu.ukma.stasiuk.nativeplayground.dto.NewSubscriptionDto;
 import ua.edu.ukma.stasiuk.nativeplayground.dto.SubscriptionDto;
 import ua.edu.ukma.stasiuk.nativeplayground.exception.SubscriptionServiceNameIsNotUniqueException;
 import ua.edu.ukma.stasiuk.nativeplayground.repository.SubscriptionRepository;
+import ua.edu.ukma.stasiuk.nativeplayground.service.SimpleAuthorizationService;
+
+import java.util.ArrayList;
 
 @Component
 public class SubscriptionApiDelegate {
 
+    protected static final Logger logger = LogManager.getLogger();
+
     private final SubscriptionRepository subscriptionRepository;
     private final SubscriptionMapper subscriptionMapper;
+    private final SimpleAuthorizationService authorizationService;
 
     public SubscriptionApiDelegate(SubscriptionRepository subscriptionRepository,
-                                   SubscriptionMapper subscriptionMapper) {
+                                   SubscriptionMapper subscriptionMapper,
+                                   SimpleAuthorizationService authorizationService) {
         this.subscriptionRepository = subscriptionRepository;
         this.subscriptionMapper = subscriptionMapper;
+        this.authorizationService = authorizationService;
     }
 
     public Iterable<SubscriptionDto> getSubscriptions() {
+        logger.info("getSubscriptions invoked");
+        if (!authorizationService.isAuthorized()) {
+            return new ArrayList<>();
+        }
+
         var entities = subscriptionRepository.findAll();
         return subscriptionMapper.convertSubscriptionEntityListToDtoList(entities);
     }
